@@ -19,7 +19,7 @@ class ViewController: UIViewController {
              Question(text: "我帅吗？", correctAnswer: true)
     ]
     var questionNum = 0
-
+    var score = 0
     
     @IBOutlet weak var questionLabel: UILabel!
     
@@ -36,33 +36,21 @@ class ViewController: UIViewController {
 
     
     @IBAction func answerPressed(_ sender: UIButton) {
-        if sender.tag == 1{
-            if questions[questionNum].answer == true{
-                print("回答正确")
-            }
-            else{
-                print("回答错误")
-            }
-        }
-        else{
-            if questions[questionNum].answer == true{
-                print("回答错误")
-            }
-            else{
-                print("回答正确")
-            }
-        }
-         
+       
+        checkAnswer(tag: sender.tag)
         questionNum+=1
         nextQuestion()
+        updateUI()
+        
         
     }
     
     
     
-    
+     
     func updateUI() {
-      
+        progressLabel.text = "\(questionNum+1)/13"
+        progressBar.frame.size.width = (view.frame.width)/13 * CGFloat(questionNum+1)
     }
     
 
@@ -73,10 +61,14 @@ class ViewController: UIViewController {
         else{
             print("到底了")
             questionNum = 0
+            score = 0
             
             let alert = UIAlertController(title: "www三三好厉害", message: "你已经答完所有题啦", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "再来一遍", style: .default, handler: { _ in
                 self.questionLabel.text = self.questions[0].questionText
+                self.scoreLabel.text = "总得分：0"
+                self.updateUI()
+                
             }))
             
             self.present(alert, animated: true, completion: nil)
@@ -85,8 +77,27 @@ class ViewController: UIViewController {
     }
     
     
-    func checkAnswer() {
-        
+    func checkAnswer(tag: Int) {
+        if tag == 1{
+            if questions[questionNum].answer == true{
+                print("回答正确")
+                score += 1
+                scoreLabel.text = "总得分：\(score)"
+            }
+            else{
+                print("回答错误")
+            }
+        }
+        else{
+            if questions[questionNum].answer == true{
+                print("回答错误")
+            }
+            else{
+                print("回答正确")
+                score += 1
+                scoreLabel.text = "总得分：\(score)"
+            }
+        }
     }
     
     
