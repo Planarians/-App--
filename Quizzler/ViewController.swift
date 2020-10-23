@@ -18,6 +18,7 @@ class ViewController: UIViewController {
              Question(text: "优酷比B站牛", correctAnswer: false),
              Question(text: "我帅吗？", correctAnswer: true)
     ]
+    var questionNum = 0
 
     
     @IBOutlet weak var questionLabel: UILabel!
@@ -36,7 +37,7 @@ class ViewController: UIViewController {
     
     @IBAction func answerPressed(_ sender: UIButton) {
         if sender.tag == 1{
-            if questions[0].answer == true{
+            if questions[questionNum].answer == true{
                 print("回答正确")
             }
             else{
@@ -44,14 +45,17 @@ class ViewController: UIViewController {
             }
         }
         else{
-            if questions[0].answer == true{
+            if questions[questionNum].answer == true{
                 print("回答错误")
             }
             else{
                 print("回答正确")
             }
-            
         }
+         
+        questionNum+=1
+        nextQuestion()
+        
     }
     
     
@@ -63,7 +67,21 @@ class ViewController: UIViewController {
     
 
     func nextQuestion() {
-        
+        if questionNum <= 12{
+            questionLabel.text = questions[questionNum].questionText
+        }
+        else{
+            print("到底了")
+            questionNum = 0
+            
+            let alert = UIAlertController(title: "www三三好厉害", message: "你已经答完所有题啦", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "再来一遍", style: .default, handler: { _ in
+                self.questionLabel.text = self.questions[0].questionText
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+             
+        }
     }
     
     
