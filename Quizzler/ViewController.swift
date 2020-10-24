@@ -1,4 +1,5 @@
 import UIKit
+ 
 
 class ViewController: UIViewController {
     
@@ -63,7 +64,7 @@ class ViewController: UIViewController {
             questionNum = 0
             score = 0
             
-            let alert = UIAlertController(title: "www三三好厉害", message: "你已经答完所有题啦", preferredStyle: .alert)
+             let alert = UIAlertController(title: "www三三好厉害", message: "你已经答完所有题啦", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "再来一遍", style: .default, handler: { _ in
                 self.questionLabel.text = self.questions[0].questionText
                 self.scoreLabel.text = "总得分：0"
@@ -83,6 +84,8 @@ class ViewController: UIViewController {
                 print("回答正确")
                 score += 1
                 scoreLabel.text = "总得分：\(score)"
+                
+                
             }
             else{
                 print("回答错误")
