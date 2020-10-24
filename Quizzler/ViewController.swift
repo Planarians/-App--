@@ -1,5 +1,5 @@
 import UIKit
- 
+import ProgressHUD
 
 class ViewController: UIViewController {
     
@@ -79,26 +79,32 @@ class ViewController: UIViewController {
     
     
     func checkAnswer(tag: Int) {
+        ProgressHUD.colorAnimation = .systemGreen
         if tag == 1{
             if questions[questionNum].answer == true{
                 print("回答正确")
                 score += 1
                 scoreLabel.text = "总得分：\(score)"
+                ProgressHUD.showSucceed("答对啦")
                 
                 
             }
             else{
                 print("回答错误")
+                ProgressHUD.showFailed("答错啦")
             }
         }
         else{
             if questions[questionNum].answer == true{
                 print("回答错误")
+                ProgressHUD.showFailed("答错啦")
+                
             }
             else{
                 print("回答正确")
                 score += 1
                 scoreLabel.text = "总得分：\(score)"
+                ProgressHUD.showSucceed("答对啦")
             }
         }
     }
